@@ -1,4 +1,4 @@
 # SE_WS2022
 
-Dependencies
+## Dependencies
   Unity 2021.3.11f
