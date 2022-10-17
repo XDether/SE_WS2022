@@ -1,3 +1,4 @@
 # SE_WS2022
 
-Empry
+Dependencies
+  Unity 2021.3.11f
