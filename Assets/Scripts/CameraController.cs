@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-
-
-
     [SerializeField] private Transform target; 
-    [SerializeField] private float speed, increment, incrementSpeedInSeconds;
+    [SerializeField] private float speed, increment, incrementSpeedInSeconds, followSpeed;
     
     private float startTime, passtTime;
-    private float camWidth, camHeight; 
+    private float camHalfWidth, camHalfHeight; 
 
     private Rigidbody2D rb2d;
 
@@ -21,10 +18,10 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         Camera camera = Camera.main;
-        camHeight = camera.orthographicSize * 2;
-        camWidth = camera.aspect * camHeight;
+        camHalfHeight = camera.orthographicSize;
+        camHalfWidth = camera.aspect * camHalfHeight;
 
-        Debug.Log(camHeight + " " + camWidth);
+        Debug.Log(camHalfHeight + " " + camHalfWidth);
 
         rb2d = this.GetComponent<Rigidbody2D>();
         rb2d.velocity = new Vector2(speed, rb2d.velocity.y);
@@ -35,6 +32,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //CameraSpeed
         if(passtTime >= incrementSpeedInSeconds)
         {
             speed = speed + increment;
@@ -44,11 +42,29 @@ public class CameraController : MonoBehaviour
         }else
         {
             passtTime =  Time.time - startTime; 
+
         }
 
-        if(target.position.x - this.transform.position.x  < -camWidth/2)
+
+    }
+
+    void FixedUpdate()
+    {
+        //Left
+        if(target.position.x - this.transform.position.x  < -camHalfWidth - 3)
         {
-            target.position = new Vector3( camWidth/2 + this.transform.position.x, 0,0);
+            target.position = new Vector3( camHalfWidth/2 + this.transform.position.x, 0,0);
+            //Time.timeScale = 0;
         }
+
+        //Right
+        if(target.position.x - this.transform.position.x  > camHalfWidth - 1)
+        {
+            this.transform.position = new Vector3(target.position.x - (camHalfWidth - 1),this.transform.position.y,this.transform.position.z);
+        }
+
+        //Calculation for y postion
+        Vector3 newPos = new Vector3(this.transform.position.x, target.position.y, this.transform.position.z);
+        transform.position = new Vector3(this.transform.position.x, Vector3.Slerp(transform.position, newPos, followSpeed*Time.deltaTime).y,this.transform.position.z);
     }
 }
