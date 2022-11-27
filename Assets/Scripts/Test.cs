@@ -13,6 +13,6 @@ public class Test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = this.transform.position + new Vector3(1 * Time.deltaTime,2 * Time.deltaTime,0);
+        this.transform.position = this.transform.position + new Vector3(1 * Time.deltaTime, 0, 0);
     }
 }
