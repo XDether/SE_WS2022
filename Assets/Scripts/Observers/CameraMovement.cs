@@ -15,10 +15,13 @@ public class CameraMovement : Observer
 
     public void yFollow(Transform target){
         this.gameObject.transform.position = new Vector3(   this.gameObject.transform.position.x,
-                                                            Vector3.Lerp(gameObject.transform.position ,target.position + new Vector3(0,1,0), Time.deltaTime * 1).y,
+                                                            Vector3.Lerp(gameObject.transform.position ,target.position + new Vector3(0,0.5f,0), Time.deltaTime * 15).y,
                                                             this.gameObject.transform.position.z);
     }
 
+    public void Stop(){
+        this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(0,this.gameObject.GetComponent<Rigidbody2D>().velocity.y,0);
+    }
     public override void  OnNotify(){
         speed = speed + increment;
         this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(speed,this.gameObject.GetComponent<Rigidbody2D>().velocity.y,0);

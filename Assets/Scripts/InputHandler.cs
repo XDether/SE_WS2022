@@ -2,21 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-    public class InputHandler : MonoBehaviour
+public class InputHandler : MonoBehaviour
+{
+    public GameObject player;
+    private Command buttonA, buttonD, buttonSpace, buttonStopAD;
+    private bool canMove;
+
+    void Start()
     {
-        public GameObject player;
-        private Command buttonA, buttonD, buttonSpace, buttonStopAD;
+        canMove = true;
+        buttonStopAD = new Stop();
+        buttonA = new MoveLeft();
+        buttonD = new MoveRight();
+        buttonSpace = new Jump();
+    }
 
-        void Start()
-        {
-            buttonStopAD = new Stop();
-            buttonA = new MoveLeft();
-            buttonD = new MoveRight();
-            buttonSpace = new Jump();
-        }
-
-        public void HandleInput()
-        {
+    public void HandleInput()
+    {   
+        if(canMove){
             if(Input.GetKey(KeyCode.A))
             {
                 buttonA.Execute(player.GetComponent<Rigidbody2D>());
@@ -36,10 +39,20 @@ using UnityEngine;
             {
                 buttonSpace.Execute(player.GetComponent<Rigidbody2D>());
             }
+        }else
+        {
+            buttonStopAD.Execute(player.GetComponent<Rigidbody2D>());
         }
 
-        public void setSpeed(float speed){
-            buttonD.speed = speed;
-            buttonA.speed = speed;
-        }
     }
+
+    public void setSpeed(float speed){
+        buttonD.speed = speed;
+        buttonA.speed = speed;
+    }
+
+    public void setCanMove(bool canMove)
+    {
+        this.canMove = canMove;
+    }
+}

@@ -2,15 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageGenerator: MonoBehaviour
+public class StageGenerator: Observer
 {
     private List<GameObject> spawnedObjects;
     private bool canInstantiate;
-    [SerializeField] private GameObject[] gameObjects;
-    [SerializeField] private float HalfStageWidht;
+    private GameObject[] gameObjects;
+    private float HalfStageWidht;
     private Camera cam;
     float oldCamPos, camHalfWidth, camHalfHeight;
-    public void Start(){
+
+    public StageGenerator(GameObject[] gameObjects, float HalfStageWidth)
+    {
+        spawnedObjects = new List<GameObject>();
+        cam = Camera.main;
+        camHalfHeight = cam.orthographicSize;
+        camHalfWidth = cam.aspect * camHalfHeight;
+        oldCamPos = cam.transform.position.x - camHalfWidth - HalfStageWidht;
+
+        this.HalfStageWidht = HalfStageWidth;
+        this.gameObjects = gameObjects;
+    }
+
+    public override void OnNotify()
+    {
+        if(oldCamPos + camHalfWidth + HalfStageWidht <= cam.transform.position.x)
+        {
+            oldCamPos = cam.transform.position.x;
+            Spawn();
+        }
+
+    }
+
+    public void Spawn()
+    {
+        GameObject newSpawn = GameObject.Instantiate(gameObjects[Random.Range(0, gameObjects.Length)]);
+        newSpawn.transform.position = new Vector3(cam.transform.position.x + camHalfWidth + HalfStageWidht,0,0);
+        spawnedObjects.Add(newSpawn);
+
+        if(spawnedObjects.Count > 2)
+        {
+            GameObject toRemove = spawnedObjects[0];
+            spawnedObjects.Remove(toRemove);
+            GameObject.Destroy(toRemove);
+        }
+    }
+
+
+    /*public void Start(){
         spawnedObjects = new List<GameObject>();
         cam = Camera.main;
         camHalfHeight = cam.orthographicSize;
@@ -32,12 +70,13 @@ public class StageGenerator: MonoBehaviour
         GameObject newSpawn = Instantiate(gameObjects[Random.Range(0, gameObjects.Length)]);
         newSpawn.transform.position = new Vector3(cam.transform.position.x + camHalfWidth + HalfStageWidht,0,0);
         spawnedObjects.Add(newSpawn);
-        
+
         if(spawnedObjects.Count > 2)
         {
             GameObject toRemove = spawnedObjects[0];
             spawnedObjects.Remove(toRemove);
             Destroy(toRemove);
         }
-    }
+    }*/
+
 }
