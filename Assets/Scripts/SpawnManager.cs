@@ -8,7 +8,7 @@ public class SpawnManager : MonoBehaviour
     private float spawnDelay = 2f;
     private float spawnInterval = 4f;
 
-    private CameraController cameraController;
+    //private CameraController cameraController;
     private float cameraPosition;
 
     // Start is called before the first frame update

@@ -2,18 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraMovement : Observer
 {
-    [SerializeField] private Transform target; 
-    [SerializeField] private float speed, increment, incrementSpeedInSeconds, followSpeed;
-    
-    private float startTime, passtTime;
-    private float camHalfWidth, camHalfHeight; 
+    private float speed, increment;
+    private GameObject gameObject;
 
-    private Rigidbody2D rb2d;
+    public CameraMovement(float speed, float increment, GameObject gameObject){
+        this.speed = speed;
+        this.increment = increment;
+        this.gameObject = gameObject;
+        this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(speed,0,0);
+    }
 
+    public override void  OnNotify(){
+        speed = speed + increment;
+        Debug.Log("iam");
+        this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(speed,0,0);
+    }
 
-
+    /*
     // Start is called before the first frame update
     void Start()
     {
@@ -27,16 +34,16 @@ public class CameraController : MonoBehaviour
         rb2d.velocity = new Vector2(speed, rb2d.velocity.y);
 
         startTime = Time.time;
-    }
+    }*/
 
-    // Update is called once per frame
+    // old update
+    /*
     void Update()
     {
         //CameraSpeed
         if(passtTime >= incrementSpeedInSeconds)
         {
-            speed = speed + increment;
-            rb2d.velocity = new Vector2(speed, rb2d.velocity.y);
+
             startTime = Time.time;
             passtTime = 0;
         }else
@@ -44,11 +51,10 @@ public class CameraController : MonoBehaviour
             passtTime =  Time.time - startTime; 
 
         }
+    }*/
 
-
-    }
-
-    void FixedUpdate()
+    //old fixed update
+    /*void FixedUpdate()
     {
         //Left
         if(target.position.x - this.transform.position.x  < -camHalfWidth - 3)
@@ -66,5 +72,5 @@ public class CameraController : MonoBehaviour
         //Calculation for y postion
         Vector3 newPos = new Vector3(this.transform.position.x, target.position.y, this.transform.position.z);
         transform.position = new Vector3(this.transform.position.x, Vector3.Slerp(transform.position, newPos, followSpeed*Time.deltaTime).y,this.transform.position.z);
-    }
+    }*/
 }
