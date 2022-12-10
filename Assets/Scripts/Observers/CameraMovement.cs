@@ -23,7 +23,13 @@ public class CameraMovement : Observer
         this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(0,this.gameObject.GetComponent<Rigidbody2D>().velocity.y,0);
     }
     public override void  OnNotify(){
-        speed = speed + increment;
-        this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(speed,this.gameObject.GetComponent<Rigidbody2D>().velocity.y,0);
+        if(GameController.GetGameState() == GameState.OnGoing)
+        {
+            speed = speed + increment;
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(speed,this.gameObject.GetComponent<Rigidbody2D>().velocity.y,0);
+        }else
+        {
+            Stop();
+        }
     }
 }

@@ -10,43 +10,40 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject [] stageObjects;
     [SerializeField] private TextMeshProUGUI timer, gameOverText;
 
-    private Subject timeSubject, gameOverSubject ,everyTicksSubject;
+    private string playerName;
+    private static GameState gameState;
+    private Subject timeSubject, gameOverSubject ,everyTickSubject;
     private CameraMovement cameraMovement;
     private Watch watch;
-    
     private StageGenerator stageGenerator;
     private GameOver gameOver;
-
-
     private bool hasNotifiedTime, isGameOver;
     private float camHalfHeight,camHalfWidth, startTime;
-
-
     // Start is called before the first frame update
     void Start()
     {   
         startTime = Time.time;
+        gameState = GameState.Start;
+        
+        playerName = "unkown";
 
         timeSubject = new Subject();
-        gameOverSubject = new Subject();
-        everyTicksSubject = new Subject();
+        everyTickSubject = new Subject();
 
         watch = new Watch(startTime, timer);
         cameraMovement = new CameraMovement(speed, increment, cam);
         stageGenerator = new StageGenerator(stageObjects,HalfStageWidth);
-
-        gameOver = new GameOver(watch.getSpentTime(),"Joe Mawa", gameOverPannel, gameOverText);
+        gameOver = new GameOver(watch.getSpentTime(),playerName, gameOverPannel, gameOverText);
         
+        //Getting camera width and height
         Camera came = Camera.main;
-
         camHalfHeight = came.orthographicSize;
         camHalfWidth = came.aspect * camHalfHeight;
         
         timeSubject.AddObserver(cameraMovement);
-        gameOverSubject.AddObserver(gameOver);
-        everyTicksSubject.AddObserver(watch);
-        everyTicksSubject.AddObserver(stageGenerator);
-
+        everyTickSubject.AddObserver(watch);
+        everyTickSubject.AddObserver(stageGenerator);
+        everyTickSubject.AddObserver(gameOver);
     }
 
     // Update is called once per frame
@@ -54,23 +51,23 @@ public class GameController : MonoBehaviour
     {
         inputHandler.GetComponent<InputHandler>().HandleInput();
         
-        everyTicksSubject.Notify();
-
+        everyTickSubject.Notify();
         if(!hasNotifiedTime){
-            StartCoroutine(NotifyTimeAfter(incrementAfter));
+                StartCoroutine(NotifyTimeAfter(incrementAfter));
         } 
 
         if(player.transform.position.x < cam.transform.position.x - camHalfWidth - 3)
         {
-
+            gameState = GameState.Over;
             gameOver.setTime(watch.getSpentTime());
-            gameOverSubject.Notify();
+
             inputHandler.GetComponent<InputHandler>().setCanMove(false);
-            timeSubject.RemoveObserver(cameraMovement);
-            gameOverSubject.RemoveObserver(gameOver);
-            everyTicksSubject.RemoveObserver(watch);
-            everyTicksSubject.RemoveObserver(stageGenerator);
-            cameraMovement.Stop();
+            everyTickSubject.RemoveObserver(watch);
+            everyTickSubject.RemoveObserver(stageGenerator);
+        }
+        else
+        {
+            gameState = GameState.OnGoing;
         }
     }
 
@@ -86,5 +83,10 @@ public class GameController : MonoBehaviour
         speed = speed + increment;
         inputHandler.GetComponent<InputHandler>().setSpeed(speed+4);
         timeSubject.Notify();
+    }
+
+    public static GameState GetGameState()
+    {
+        return gameState;
     }
 }
