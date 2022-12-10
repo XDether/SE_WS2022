@@ -7,6 +7,5 @@ using UnityEngine;
     {
         public float speed = 1, jumpForce = 30f;
         public abstract void Execute(Rigidbody2D rigidbody2D);
-
     }
 
