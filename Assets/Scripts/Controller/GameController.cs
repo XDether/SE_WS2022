@@ -11,17 +11,19 @@ public class GameController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timer, gameOverText;
 
     private string playerName;
+    private Highscores scores;
+
     private static GameState gameState;
     private Subject timeSubject, gameOverSubject ,everyTickSubject;
     private CameraMovement cameraMovement;
     private Watch watch;
     private StageGenerator stageGenerator;
     private GameOver gameOver;
-    private bool hasNotifiedTime, isGameOver;
+    private bool hasNotifiedTime, isGameOver,doOnce;
     private float camHalfHeight,camHalfWidth, startTime;
     // Start is called before the first frame update
     void Start()
-    {   
+    {   scores = new Highscores();
         startTime = Time.time;
         gameState = GameState.Start;
         
@@ -64,6 +66,11 @@ public class GameController : MonoBehaviour
             inputHandler.GetComponent<InputHandler>().setCanMove(false);
             everyTickSubject.RemoveObserver(watch);
             everyTickSubject.RemoveObserver(stageGenerator);
+
+            if(!doOnce){
+                scores.AddScore(playerName, watch.getSpentTime());
+                doOnce = true;
+            }
         }
         else
         {
