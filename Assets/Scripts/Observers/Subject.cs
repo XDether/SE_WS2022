@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Subject
 {
-    List<Observer> observers = new List<Observer>();
+    private List<Observer> observers = new List<Observer>();
 
     public void Notify()
     {

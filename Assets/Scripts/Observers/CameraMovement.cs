@@ -19,7 +19,7 @@ public class CameraMovement : Observer
                                                             this.gameObject.transform.position.z);
     }
 
-    public void Stop(){
+    private void Stop(){
         this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(0,this.gameObject.GetComponent<Rigidbody2D>().velocity.y,0);
     }
     public override void  OnNotify(){

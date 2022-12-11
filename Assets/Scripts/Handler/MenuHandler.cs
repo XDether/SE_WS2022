@@ -7,7 +7,6 @@ using TMPro;
 public class MenuHandler : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI ScoreField;
-    private string scoreText;
     private Highscores scores;
 
     void Start()

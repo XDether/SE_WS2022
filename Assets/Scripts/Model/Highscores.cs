@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class Highscores: Observer
+public class Highscores
 {
 
     private string path;
@@ -72,14 +72,11 @@ public class Highscores: Observer
 
         string text = "";
 
-        for(int i  = 0; i< bestScores.Count; i++)
+        foreach(Score score in bestScores)
         {
-            if(i >= 10)
-            {
-                return text;
-            }
-            text = text + bestScores[i].GetName() + " : " + bestScores[i].GetScore() + "\n";
+            text = text + score.GetName() + " / " + score.GetScore() + "\n";
         }
+
         return text;
     }
 
@@ -88,10 +85,5 @@ public class Highscores: Observer
         FileStream stream = new FileStream(path , FileMode.Create);
         formatter.Serialize(stream, scores);
         stream.Close();
-    }
-
-    public override void OnNotify()
-    {
-
     }
 }

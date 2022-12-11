@@ -10,25 +10,20 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject cam, player, inputHandler, gameOverPannel;
     [SerializeField] private GameObject [] stageObjects;
     [SerializeField] private TextMeshProUGUI timer, gameOverText;
-
-    private string playerName;
-    private Highscores scores;
-
     private static GameState gameState;
-    private Subject timeSubject, gameOverSubject ,everyTickSubject;
+    private Subject timeSubject ,everyTickSubject;
     private CameraMovement cameraMovement;
     private Watch watch;
     private StageGenerator stageGenerator;
     private GameOver gameOver;
-    private bool hasNotifiedTime, isGameOver,doOnce;
+    private bool hasNotifiedTime, isGameOver;
     private float camHalfHeight,camHalfWidth, startTime;
+
     // Start is called before the first frame update
     void Start()
-    {   scores = new Highscores();
+    {   
         startTime = Time.time;
         gameState = GameState.Start;
-        
-        playerName = "unkown";
 
         timeSubject = new Subject();
         everyTickSubject = new Subject();
@@ -36,7 +31,7 @@ public class GameController : MonoBehaviour
         watch = new Watch(startTime, timer);
         cameraMovement = new CameraMovement(speed, increment, cam);
         stageGenerator = new StageGenerator(stageObjects,HalfStageWidth);
-        gameOver = new GameOver(watch.getSpentTime(), playerName, gameOverPannel, gameOverText);
+        gameOver = new GameOver(watch.getSpentTime(), "", gameOverPannel, gameOverText);
         
         //Getting camera width and height
         Camera came = Camera.main;
@@ -67,11 +62,6 @@ public class GameController : MonoBehaviour
             inputHandler.GetComponent<InputHandler>().setCanMove(false);
             everyTickSubject.RemoveObserver(watch);
             everyTickSubject.RemoveObserver(stageGenerator);
-
-            if(!doOnce){
-                scores.AddScore(playerName, watch.getSpentTime());
-                doOnce = true;
-            }
         }
         else
         {
@@ -92,18 +82,14 @@ public class GameController : MonoBehaviour
         inputHandler.GetComponent<InputHandler>().setSpeed(speed+4);
         timeSubject.Notify();
     }
-    public void StartScene(int index)
-    {
-        SceneManager.LoadScene(index);
-    }
-
-    public void Quit()
-    {
-        Application.Quit();
-    }
 
     public static GameState GetGameState()
     {
         return gameState;
+    }
+
+    public float getTime()
+    {
+        return watch.getSpentTime();
     }
 }
