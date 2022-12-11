@@ -19,7 +19,6 @@ public class GameController : MonoBehaviour
     private bool hasNotifiedTime;
     private float camHalfHeight,camHalfWidth, startTime;
 
-    // Start is called before the first frame update
     void Start()
     {   
         startTime = Time.time;
@@ -44,7 +43,6 @@ public class GameController : MonoBehaviour
         everyTickSubject.AddObserver(gameOver);
     }
 
-    // Update is called once per frame
     void Update()
     {
         inputHandler.GetComponent<InputHandler>().HandleInput();
