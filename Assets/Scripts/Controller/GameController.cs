@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     private Watch watch;
     private StageGenerator stageGenerator;
     private GameOver gameOver;
-    private bool hasNotifiedTime, isGameOver;
+    private bool hasNotifiedTime;
     private float camHalfHeight,camHalfWidth, startTime;
 
     // Start is called before the first frame update
