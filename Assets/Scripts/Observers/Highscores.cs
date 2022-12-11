@@ -44,15 +44,41 @@ public class Highscores: Observer
     }
 
     public string GetScores(){
+
+        List<Score> tmpScores = scores;  
+        List<Score> bestScores = new List<Score>();
+        Score best = new Score("Empty", 0);
+
+        int req = tmpScores.Count; 
+
+        for(int i = 0; i < req; i++)
+        {
+            if(i >= 10){
+                break;
+            }
+
+            foreach(Score score in tmpScores)
+            {
+                if(best.GetScore() <= score.GetScore())
+                {
+                    best = score;   
+                }
+            }
+
+            bestScores.Add(best);
+            tmpScores.Remove(best);
+            best = new Score("Empty", 0);
+        }
+
         string text = "";
 
-        for(int i  = 0; i< scores.Count; i++)
+        for(int i  = 0; i< bestScores.Count; i++)
         {
             if(i >= 10)
             {
                 return text;
             }
-            text = text + scores[i].GetName() + " : " + scores[i].GetScore() + "\n";
+            text = text + bestScores[i].GetName() + " : " + bestScores[i].GetScore() + "\n";
         }
         return text;
     }
