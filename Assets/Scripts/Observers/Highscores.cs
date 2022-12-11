@@ -43,8 +43,18 @@ public class Highscores: Observer
         }
     }
 
-    public List<Score> GetScores(){
-        return scores;
+    public string GetScores(){
+        string text = "";
+
+        for(int i  = 0; i< scores.Count; i++)
+        {
+            if(i >= 10)
+            {
+                return text;
+            }
+            text = text + scores[i].GetName() + " : " + scores[i].GetScore() + "\n";
+        }
+        return text;
     }
 
     public void CreateScores()

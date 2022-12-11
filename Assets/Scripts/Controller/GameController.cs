@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameController : MonoBehaviour
@@ -35,7 +36,7 @@ public class GameController : MonoBehaviour
         watch = new Watch(startTime, timer);
         cameraMovement = new CameraMovement(speed, increment, cam);
         stageGenerator = new StageGenerator(stageObjects,HalfStageWidth);
-        gameOver = new GameOver(watch.getSpentTime(),playerName, gameOverPannel, gameOverText);
+        gameOver = new GameOver(watch.getSpentTime(), playerName, gameOverPannel, gameOverText);
         
         //Getting camera width and height
         Camera came = Camera.main;
@@ -82,7 +83,7 @@ public class GameController : MonoBehaviour
         cameraMovement.yFollow(player.transform);
     }
 
-    IEnumerator NotifyTimeAfter(float seconds)
+    private IEnumerator NotifyTimeAfter(float seconds)
     {
         hasNotifiedTime = true;
         yield return new WaitForSeconds(seconds);
@@ -90,6 +91,15 @@ public class GameController : MonoBehaviour
         speed = speed + increment;
         inputHandler.GetComponent<InputHandler>().setSpeed(speed+4);
         timeSubject.Notify();
+    }
+    public void StartScene(int index)
+    {
+        SceneManager.LoadScene(index);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 
     public static GameState GetGameState()

@@ -14,6 +14,7 @@ public class GameOver : Observer
         this.time = time;
         this.gameOverPannel = gameOverPannel;
         this.gameOverText = gameOverText;
+        this.name = name;
     }
 
     public void setTime(float time){
