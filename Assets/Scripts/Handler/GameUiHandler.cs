@@ -23,15 +23,18 @@ public class GameUiHandler : MonoBehaviour
             nameField.text = "Submited!!";
             alreadySubmited = true;
         }
+        GameObject.Find("AudioController").GetComponent<AudioController>().Play("ButtonClick");
     }
 
     public void StartScene(int index)
     {
+        GameObject.Find("AudioController").GetComponent<AudioController>().Play("ButtonClick");
         SceneManager.LoadScene(index);
     }
 
     public void Quit()
     {
+        GameObject.Find("AudioController").GetComponent<AudioController>().Play("ButtonClick");
         Application.Quit();
     }
 }

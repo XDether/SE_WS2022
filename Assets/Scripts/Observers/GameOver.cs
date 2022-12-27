@@ -23,7 +23,6 @@ public class GameOver : Observer
 
     public override void OnNotify()
     {
-        Debug.Log(GameController.GetGameState());
         if(GameController.GetGameState() == GameState.Over)
         {
                 gameOverText.text = "Sup " + name + " your time was " + time +" s";
