@@ -33,9 +33,9 @@ public class InputHandler : MonoBehaviour
                 buttonStopAD.Execute(player.GetComponent<Rigidbody2D>());
             }
 
-            RaycastHit2D hit = Physics2D.Raycast(player.transform.position + new Vector3(-0.6f,0,0) , Vector2.down);
+            RaycastHit2D hit = Physics2D.Raycast(player.transform.position , Vector2.down);
             
-            if(Input.GetKey(KeyCode.Space) && hit.distance < 1 && hit.collider != null)
+            if(Input.GetKey(KeyCode.Space) && hit.distance < 2 && hit.collider != null)
             {
                 buttonSpace.Execute(player.GetComponent<Rigidbody2D>());
             }
