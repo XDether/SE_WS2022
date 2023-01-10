@@ -6,11 +6,12 @@ public class InputHandler : MonoBehaviour
 {
     public GameObject player;
     private Command buttonA, buttonD, buttonSpace, buttonStopAD;
-    private bool canMove;
+    private bool canMove, isPlaySound;
 
     void Start()
     {
         canMove = true;
+        isPlaySound = true;
         buttonStopAD = new Stop();
         buttonA = new MoveLeft();
         buttonD = new MoveRight();
@@ -36,14 +37,28 @@ public class InputHandler : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(player.transform.position , Vector2.down);
             
             if(Input.GetKey(KeyCode.Space) && hit.distance < 2 && hit.collider != null)
-            {
+            {   
+                
                 buttonSpace.Execute(player.GetComponent<Rigidbody2D>());
+
+                if(isPlaySound)
+                {
+                    GameObject.Find("AudioController").GetComponent<AudioController>().Play("Jump");
+                    isPlaySound = false;
+                    StartCoroutine(WaitForSound());
+                }
             }
         }else
         {
             buttonStopAD.Execute(player.GetComponent<Rigidbody2D>());
         }
 
+    }
+    
+    private IEnumerator WaitForSound()
+    {
+        yield return new WaitForSeconds(0.2f);
+        isPlaySound = true;
     }
 
     public void setSpeed(float speed){

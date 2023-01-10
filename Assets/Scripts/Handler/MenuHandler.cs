@@ -17,7 +17,11 @@ public class MenuHandler : MonoBehaviour
 
     public void StartScene(int index)
     {
-        GameObject.Find("AudioController").GetComponent<AudioController>().Play("ButtonClick");
+        if(GameObject.Find("AudioController"))
+        {
+            GameObject.Find("AudioController").GetComponent<AudioController>().Play("Theme");
+            GameObject.Find("AudioController").GetComponent<AudioController>().Play("ButtonClick");
+        }
         SceneManager.LoadScene(index);
     }
 

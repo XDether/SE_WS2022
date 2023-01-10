@@ -24,6 +24,7 @@ public class GameUiHandler : MonoBehaviour
             alreadySubmited = true;
         }
         GameObject.Find("AudioController").GetComponent<AudioController>().Play("ButtonClick");
+        SceneManager.LoadScene(0);
     }
 
     public void StartScene(int index)

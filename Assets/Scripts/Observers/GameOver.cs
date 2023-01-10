@@ -27,8 +27,12 @@ public class GameOver : Observer
         {
                 gameOverText.text = "Sup " + name + " your time was " + time +" s";
                 gameOverPannel.SetActive(true);
+
+                if(GameObject.Find("AudioController"))
+                {
+                    GameObject.Find("AudioController").GetComponent<AudioController>().Stop("Theme");
+                }
         }
-        //Time.timeScale = 0;
     }
 
 }

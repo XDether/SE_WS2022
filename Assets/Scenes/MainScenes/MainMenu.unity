@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &70171594
 RectTransform:
   m_ObjectHideFlags: 0
@@ -666,6 +666,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: af93e1681a17d154ba03793147b437fb, type: 3}
     volume: 1
     pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Theme
+    clip: {fileID: 8300000, guid: 54c5f1cc41d6b9f4883e7d1df7372510, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Jump
+    clip: {fileID: 8300000, guid: 50e997903a438664582b1528f94c6f80, type: 3}
+    volume: 0.3
+    pitch: 0.8
     loop: 0
     source: {fileID: 0}
 --- !u!1 &697601908

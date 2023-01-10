@@ -15,7 +15,7 @@ public class CameraMovement : Observer
 
     public void yFollow(Transform target){
         this.gameObject.transform.position = new Vector3(   this.gameObject.transform.position.x,
-                                                            Vector3.Lerp(gameObject.transform.position ,target.position + new Vector3(0,0.5f,0), Time.deltaTime * 15).y,
+                                                            Vector3.Lerp(gameObject.transform.position ,target.position + new Vector3(0,-0.5f,0), Time.deltaTime * 15).y,
                                                             this.gameObject.transform.position.z);
     }
 
