@@ -1,5 +1,9 @@
 ﻿using UnityEngine.Audio;
 using UnityEngine;
+
+/// <summary>
+/// Sound file represintation
+/// </summary>
 [System.Serializable]
 public class Sound 
 {

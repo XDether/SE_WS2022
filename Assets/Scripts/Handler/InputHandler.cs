@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Handler for user inputs
+/// </summary>
 public class InputHandler : MonoBehaviour
 {
     public GameObject player;
     private Command buttonA, buttonD, buttonSpace, buttonStopAD;
     private bool canMove, isPlaySound;
-
     void Start()
     {
         canMove = true;
@@ -18,6 +19,9 @@ public class InputHandler : MonoBehaviour
         buttonSpace = new Jump();
     }
 
+    /// <summary>
+    /// Code to handle input
+    /// </summary>
     public void HandleInput()
     {   
         if(canMove){
@@ -36,7 +40,7 @@ public class InputHandler : MonoBehaviour
 
             RaycastHit2D hit = Physics2D.Raycast(player.transform.position , Vector2.down);
             
-            if(Input.GetKey(KeyCode.Space) && hit.distance < 2 && hit.collider != null)
+                if(Input.GetKey(KeyCode.Space) && hit.distance < 1.2 && hit.collider != null)
             {   
                 
                 buttonSpace.Execute(player.GetComponent<Rigidbody2D>());
@@ -61,11 +65,19 @@ public class InputHandler : MonoBehaviour
         isPlaySound = true;
     }
 
+    /// <summary>
+    /// Sets the speed of the player
+    /// </summary>
+    /// <param name="speed">Integer</param>
     public void setSpeed(float speed){
         buttonD.speed = speed;
         buttonA.speed = speed;
     }
 
+    /// <summary>
+    ///  Sets if the player cann move
+    /// </summary>
+    /// <param name="canMove"></param>
     public void setCanMove(bool canMove)
     {
         this.canMove = canMove;

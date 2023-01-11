@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+/// <summary>
+/// Main Menu Handler
+/// </summary>
 public class MenuHandler : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI ScoreField;
@@ -15,6 +18,10 @@ public class MenuHandler : MonoBehaviour
         ScoreField.text = scores.GetScores();
     }
 
+    /// <summary>
+    /// Starts a scene
+    /// </summary>
+    /// <param name="index">index of the scene</param>
     public void StartScene(int index)
     {
         if(GameObject.Find("AudioController"))
@@ -25,6 +32,9 @@ public class MenuHandler : MonoBehaviour
         SceneManager.LoadScene(index);
     }
 
+    /// <summary>
+    /// quits the application
+    /// </summary>
     public void Quit()
     {
         GameObject.Find("AudioController").GetComponent<AudioController>().Play("ButtonClick");

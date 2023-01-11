@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace TeamOne
 {
+    /// <summary>
+    /// Player Animation Controller
+    /// </summary>
     public class PlayerAnimation : MonoBehaviour
     {
 
         private Animator anim;
         private Rigidbody2D rb2D;
         private SpriteRenderer sr;
-
+        
         void Start()
         {
             anim = this.GetComponent<Animator>();

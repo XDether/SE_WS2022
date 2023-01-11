@@ -1,7 +1,9 @@
 ﻿using UnityEngine.Audio;
 using System;
 using UnityEngine;
-
+/// <summary>
+/// Manages The audio
+/// </summary>
 public class AudioController : MonoBehaviour
 {
 
@@ -32,6 +34,10 @@ public class AudioController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// play a Sound 
+    /// </summary>
+    /// <param name="name">sound name</param>
     public void Play(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -42,6 +48,11 @@ public class AudioController : MonoBehaviour
         }
         s.source.Play();
     }
+
+    /// <summary>
+    /// stops a sound
+    /// </summary>
+    /// <param name="name">sound name</param>
     public void Stop(String name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -52,6 +63,11 @@ public class AudioController : MonoBehaviour
         }
         s.source.Stop();
     }
+
+    /// <summary>
+    /// pause a sound
+    /// </summary>
+    /// <param name="name">sound name</param>
     public void Pause(String name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -62,4 +78,5 @@ public class AudioController : MonoBehaviour
         }
         s.source.Pause();
     }
+    
 }

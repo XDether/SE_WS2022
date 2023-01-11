@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-
+/// <summary>
+/// Score List
+/// </summary>
 public class Highscores
 {
 
     private string path;
     private List<Score> scores;
     private BinaryFormatter formatter;
-
+    
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public Highscores()
     {
         formatter = new BinaryFormatter();
@@ -20,12 +25,20 @@ public class Highscores
         LoadScores();
     }
 
+    /// <summary>
+    /// Adds a score to the list
+    /// </summary>
+    /// <param name="name">name of the player</param>
+    /// <param name="score">reached score</param>
     public void AddScore(string name, float score)
     {
         scores.Add(new Score(name,score));
         CreateScores();
     }
 
+    /// <summary>
+    /// Loads the score list from a file
+    /// </summary>
     public void LoadScores()
     {
 
@@ -43,6 +56,10 @@ public class Highscores
         }
     }
 
+    /// <summary>
+    /// gets the score list
+    /// </summary>
+    /// <returns>List of Scores</returns>
     public string GetScores(){
 
         List<Score> tmpScores = scores;  
@@ -80,6 +97,9 @@ public class Highscores
         return text;
     }
 
+    /// <summary>
+    /// Creates a new score list file
+    /// </summary>
     public void CreateScores()
     {   
         FileStream stream = new FileStream(path , FileMode.Create);

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-
+/// <summary>
+/// game logic for the main game
+/// </summary>
 public class GameController : MonoBehaviour
 {
     [SerializeField] private float speed, increment, incrementAfter, HalfStageWidth;
@@ -71,6 +73,11 @@ public class GameController : MonoBehaviour
         cameraMovement.yFollow(player.transform);
     }
 
+    /// <summary>
+    /// Notifys observer after time
+    /// </summary>
+    /// <param name="seconds">time in seconds</param>
+    /// <returns></returns>
     private IEnumerator NotifyTimeAfter(float seconds)
     {
         hasNotifiedTime = true;
@@ -81,11 +88,19 @@ public class GameController : MonoBehaviour
         timeSubject.Notify();
     }
 
+    /// <summary>
+    /// Game State
+    /// </summary>
+    /// <returns>Game State</returns>
     public static GameState GetGameState()
     {
         return gameState;
     }
 
+    /// <summary>
+    /// Returns the time of the runners score
+    /// </summary>
+    /// <returns>Score</returns>
     public float getTime()
     {
         return watch.getSpentTime();

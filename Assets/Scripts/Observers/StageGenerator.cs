@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Generates new stage parts
+/// </summary>
 public class StageGenerator: Observer
 {
     private List<GameObject> spawnedObjects;
@@ -10,6 +14,11 @@ public class StageGenerator: Observer
     private Camera cam;
     private float oldCamPos, camHalfWidth, camHalfHeight,HalfStageWidht;
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="gameObjects">List of stage parts</param>
+    /// <param name="HalfStageWidth">half the width of the stage parts</param>
     public StageGenerator(GameObject[] gameObjects, float HalfStageWidth)
     {
         spawnedObjects = new List<GameObject>();
@@ -22,6 +31,9 @@ public class StageGenerator: Observer
         this.gameObjects = gameObjects;
     }
 
+    /// <summary>
+    /// Spawns A new stage part under certain conditions
+    /// </summary>
     public override void OnNotify()
     {
         if(oldCamPos + camHalfWidth + HalfStageWidht <= cam.transform.position.x)
@@ -29,9 +41,11 @@ public class StageGenerator: Observer
             oldCamPos = cam.transform.position.x;
             Spawn();
         }
-
     }
 
+    /// <summary>
+    /// Handles the Spawn of a stage part
+    /// </summary>
     public void Spawn()
     {
         GameObject newSpawn = GameObject.Instantiate(gameObjects[Random.Range(0, gameObjects.Length)]);
