@@ -24,7 +24,7 @@ public class MenuHandler : MonoBehaviour
     /// <param name="index">index of the scene</param>
     public void StartScene(int index)
     {
-        if(GameObject.Find("AudioController"))
+        if (GameObject.Find("AudioController"))
         {
             GameObject.Find("AudioController").GetComponent<AudioController>().Play("Theme");
             GameObject.Find("AudioController").GetComponent<AudioController>().Play("ButtonClick");

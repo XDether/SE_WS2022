@@ -6,13 +6,13 @@ using UnityEngine;
 /// <summary>
 /// Generates new stage parts
 /// </summary>
-public class StageGenerator: Observer
+public class StageGenerator : Observer
 {
     private List<GameObject> spawnedObjects;
     private bool canInstantiate;
     private GameObject[] gameObjects;
     private Camera cam;
-    private float oldCamPos, camHalfWidth, camHalfHeight,HalfStageWidht;
+    private float oldCamPos, camHalfWidth, camHalfHeight, HalfStageWidht;
 
     /// <summary>
     /// Constructor
@@ -36,7 +36,7 @@ public class StageGenerator: Observer
     /// </summary>
     public override void OnNotify()
     {
-        if(oldCamPos + camHalfWidth + HalfStageWidht <= cam.transform.position.x)
+        if (oldCamPos + camHalfWidth + HalfStageWidht <= cam.transform.position.x)
         {
             oldCamPos = cam.transform.position.x;
             Spawn();
@@ -49,10 +49,10 @@ public class StageGenerator: Observer
     public void Spawn()
     {
         GameObject newSpawn = GameObject.Instantiate(gameObjects[Random.Range(0, gameObjects.Length)]);
-        newSpawn.transform.position = new Vector3(cam.transform.position.x + camHalfWidth + HalfStageWidht,0,0);
+        newSpawn.transform.position = new Vector3(cam.transform.position.x + camHalfWidth + HalfStageWidht, 0, 0);
         spawnedObjects.Add(newSpawn);
 
-        if(spawnedObjects.Count > 2)
+        if (spawnedObjects.Count > 2)
         {
             GameObject toRemove = spawnedObjects[0];
             spawnedObjects.Remove(toRemove);

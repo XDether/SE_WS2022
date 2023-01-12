@@ -16,19 +16,21 @@ public class Watch : Observer
     /// </summary>
     /// <param name="startTime">Start Time</param>
     /// <param name="uiElement"> UI Element to wright the time in</param>
-    public Watch(float startTime, TextMeshProUGUI uiElement){
+    public Watch(float startTime, TextMeshProUGUI uiElement)
+    {
         this.startTime = startTime;
         this.spentTime = startTime - startTime;
         this.uiElement = uiElement;
 
-        uiElement.text = uiElement.text = "Time:" + spentTime + "s";
+        uiElement.text = uiElement.text = "Time:" + spentTime.ToString("0.#") + "s";
     }
 
     /// <summary>
     /// Returns the spent time
     /// </summary>
     /// <returns></returns>
-    public float getSpentTime(){
+    public float getSpentTime()
+    {
         return spentTime;
     }
 
@@ -38,7 +40,7 @@ public class Watch : Observer
     public override void OnNotify()
     {
         spentTime = Time.time - startTime;
-        uiElement.text = "Time:" + spentTime + " s";
+        uiElement.text = "Time:" + spentTime.ToString("0.#") + " s";
     }
 
 }

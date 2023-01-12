@@ -10,6 +10,7 @@ using TMPro;
 public class GameOver : Observer
 {
     private float time;
+    private bool doOnce;
     private GameObject gameOverPannel;
     private TextMeshProUGUI gameOverText;
     private string name;
@@ -33,8 +34,22 @@ public class GameOver : Observer
     /// Sets the reached time
     /// </summary>
     /// <param name="time">Time in seconds</param>
-    public void setTime(float time){
+    public void setTime(float time)
+    {
         this.time = time;
+    }
+
+    string RandomStringGenerator(int lenght)
+    {
+        //string st = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        string result = "";
+        for (int i = 0; i < lenght; i++)
+        {
+            char c = (char)('A' + Random.Range(0, 26));
+            result += c;
+        }
+
+        return result;
     }
 
     /// <summary>
@@ -42,15 +57,26 @@ public class GameOver : Observer
     /// </summary>
     public override void OnNotify()
     {
-        if(GameController.GetGameState() == GameState.Over)
+        if (GameController.GetGameState() == GameState.Over && !doOnce)
         {
-                gameOverText.text = "Sup " + name + " your time was " + time +" s";
-                gameOverPannel.SetActive(true);
+            if (time > 30f)
+            {
+                string code = RandomStringGenerator(10);
 
-                if(GameObject.Find("AudioController"))
-                {
-                    GameObject.Find("AudioController").GetComponent<AudioController>().Stop("Theme");
-                }
+                gameOverText.text = "Nicely done\n your time was " + time.ToString("0.##") + " seconds\n here's your discount coupon\n" + code;
+            }
+            else
+            {
+                gameOverText.text = "Try again!\n Above 30 seconds is reward time!!";
+            }
+
+            gameOverPannel.SetActive(true);
+
+            if (GameObject.Find("AudioController"))
+            {
+                GameObject.Find("AudioController").GetComponent<AudioController>().Stop("Theme");
+            }
+            doOnce = true;
         }
     }
 

@@ -12,7 +12,7 @@ public class Highscores
     private string path;
     private List<Score> scores;
     private BinaryFormatter formatter;
-    
+
     /// <summary>
     /// Constructor
     /// </summary>
@@ -32,7 +32,7 @@ public class Highscores
     /// <param name="score">reached score</param>
     public void AddScore(string name, float score)
     {
-        scores.Add(new Score(name,score));
+        scores.Add(new Score(name, score));
         CreateScores();
     }
 
@@ -42,7 +42,7 @@ public class Highscores
     public void LoadScores()
     {
 
-        if(File.Exists(path))
+        if (File.Exists(path))
         {
             FileStream stream = new FileStream(path, FileMode.Open);
             scores = formatter.Deserialize(stream) as List<Score>;
@@ -60,25 +60,27 @@ public class Highscores
     /// gets the score list
     /// </summary>
     /// <returns>List of Scores</returns>
-    public string GetScores(){
+    public string GetScores()
+    {
 
-        List<Score> tmpScores = scores;  
+        List<Score> tmpScores = scores;
         List<Score> bestScores = new List<Score>();
         Score best = new Score("Empty", 0);
 
-        int req = tmpScores.Count; 
+        int req = tmpScores.Count;
 
-        for(int i = 0; i < req; i++)
+        for (int i = 0; i < req; i++)
         {
-            if(i >= 10){
+            if (i >= 10)
+            {
                 break;
             }
 
-            foreach(Score score in tmpScores)
+            foreach (Score score in tmpScores)
             {
-                if(best.GetScore() <= score.GetScore())
+                if (best.GetScore() <= score.GetScore())
                 {
-                    best = score;   
+                    best = score;
                 }
             }
 
@@ -89,9 +91,9 @@ public class Highscores
 
         string text = "";
 
-        foreach(Score score in bestScores)
+        foreach (Score score in bestScores)
         {
-            text = text + score.GetName() + " / " + score.GetScore() + "\n";
+            text = text + score.GetName() + " / " + score.GetScore().ToString("0.##") + "\n";
         }
 
         return text;
@@ -101,8 +103,8 @@ public class Highscores
     /// Creates a new score list file
     /// </summary>
     public void CreateScores()
-    {   
-        FileStream stream = new FileStream(path , FileMode.Create);
+    {
+        FileStream stream = new FileStream(path, FileMode.Create);
         formatter.Serialize(stream, scores);
         stream.Close();
     }

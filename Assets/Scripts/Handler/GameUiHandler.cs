@@ -15,15 +15,17 @@ public class GameUiHandler : MonoBehaviour
     private Highscores scores;
     private bool alreadySubmited;
 
-    void Start(){
+    void Start()
+    {
         scores = new Highscores();
     }
 
     /// <summary>
     /// Submits the reached time after game over state
     /// </summary>
-    public void SubmitScore(){
-        if(!alreadySubmited)
+    public void SubmitScore()
+    {
+        if (!alreadySubmited)
         {
             scores.AddScore(nameField.text, gameController.GetComponent<GameController>().getTime());
             nameField.text = "Submited!!";

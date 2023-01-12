@@ -13,7 +13,7 @@ public class Score
     /// <param name="name">Name of the player</param>
     /// <param name="score">reached score</param>
     public Score(string name, float score)
-    {   
+    {
         this.name = name;
         this.score = score;
     }
@@ -26,7 +26,7 @@ public class Score
     {
         return name;
     }
-    
+
     /// <summary>
     /// returns the score of the player
     /// </summary>

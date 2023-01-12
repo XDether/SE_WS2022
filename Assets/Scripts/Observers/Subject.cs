@@ -14,17 +14,18 @@ public class Subject
     /// </summary>
     public void Notify()
     {
-            for (int i = 0; i < observers.Count; i++)
-            {
-                observers[i].OnNotify();
-            }
+        for (int i = 0; i < observers.Count; i++)
+        {
+            observers[i].OnNotify();
+        }
     }
-    
+
     /// <summary>
     /// Add Observer
     /// </summary>
     /// <param name="observer"></param>
-    public void AddObserver(Observer observer){
+    public void AddObserver(Observer observer)
+    {
         observers.Add(observer);
     }
 
@@ -32,7 +33,8 @@ public class Subject
     /// Remove Observer
     /// </summary>
     /// <param name="observer"></param>
-    public void RemoveObserver(Observer observer){
+    public void RemoveObserver(Observer observer)
+    {
         observers.Remove(observer);
     }
 }
