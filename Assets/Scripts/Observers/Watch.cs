@@ -22,7 +22,7 @@ public class Watch : Observer
         this.spentTime = startTime - startTime;
         this.uiElement = uiElement;
 
-        uiElement.text = uiElement.text = "Time:" + spentTime.ToString("0.#") + "s";
+        uiElement.text = uiElement.text = "Time: " + spentTime.ToString("0.#") + " s";
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public class Watch : Observer
     public override void OnNotify()
     {
         spentTime = Time.time - startTime;
-        uiElement.text = "Time:" + spentTime.ToString("0.#") + " s";
+        uiElement.text = "Time: " + spentTime.ToString("0.#") + " s";
     }
 
 }

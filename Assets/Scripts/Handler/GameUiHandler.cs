@@ -41,8 +41,14 @@ public class GameUiHandler : MonoBehaviour
     /// <param name="index"> Scene Index Number</param>
     public void StartScene(int index)
     {
+        if (index == 1)
+        {
+            GameObject.Find("AudioController").GetComponent<AudioController>().Play("Theme");
+        }
         GameObject.Find("AudioController").GetComponent<AudioController>().Play("ButtonClick");
         SceneManager.LoadScene(index);
+
+
     }
 
 
