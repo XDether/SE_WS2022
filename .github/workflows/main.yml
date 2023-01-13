@@ -1,5 +1,9 @@
-name: GitHub Actions Demo
-on: [push]
+name: MasterCI
+on:
+  push:
+    branches:
+      - master
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -21,7 +25,7 @@ jobs:
       - name: Publish
         uses: nogsantos/scp-deploy@master
         with:
-          src: ./dist/WebGlBuild
+          src: ./WebGlBuild/*
           host: ${{ secrets.SSH_HOST }}
           remote: ${{ secrets.SSH_DIR }}
           port: ${{ secrets.SSH_PORT }}
