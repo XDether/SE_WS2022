@@ -19,6 +19,7 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: echo ${{ secrets.SSH_HOST }}
   Deployment:
     runs-on: ubuntu-latest
     steps:
